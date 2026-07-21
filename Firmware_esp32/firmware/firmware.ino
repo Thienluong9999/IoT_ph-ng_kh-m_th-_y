@@ -26,17 +26,17 @@ struct MQ_Data{
 
 //Khai báo chân & cấu hình DHT
 MQ_Data mSensor[3]={
-  {32,0},{34,0},{35,0}
+  {33,0},{34,0},{35,0}
 };
 
 const uint8_t led=19;
 
-DHT_Data dSensor={0,0,18};
+DHT_Data dSensor={0,0,5};
 
 #define DHTTYPE DHT11
 DHT dht(dSensor.pin,DHTTYPE);
 
-float filtered[3] = {0};// chứa dữ liệu để lọc
+//float filtered[3] = {0};// chứa dữ liệu để lọc
 
 //khai báo hàm
 float ema(float newVal, float &filtered);
@@ -87,7 +87,7 @@ void loop() {
   for(int i=0; i<3; i++){
     mSensor[i].analogVal=analogRead(mSensor[i].analogPin);
     //if(mSensor[i].analogVal<100){ // sensor chưa đủ nóng
-      Serial.println("MQ not ready!");
+      //Serial.println("MQ not ready!");
       //return;
     //}
     //mSensor[i].analogVal = ema(mSensor[i].analogVal, filtered[i]);
@@ -167,7 +167,7 @@ void loop() {
 }
 
 //Hàm lọc nhiễu
-float ema(float newVal, float &filtered) {
+/*float ema(float newVal, float &filtered) {
     float alpha = 0.2;
     filtered = alpha * newVal + (1 - alpha) * filtered;
     return filtered;
@@ -182,4 +182,4 @@ void filterDHT(float &t, float &h) {
 
     lastT = t;
     lastH = h;
-}
+}*/
